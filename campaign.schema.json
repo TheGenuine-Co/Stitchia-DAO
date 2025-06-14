@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Stitchia Campaign Schema",
+  "type": "object",
+  "required": ["name", "description", "cluster", "startDate", "endDate", "fundingGoal", "roles", "governanceModel"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Campaign name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed campaign description"
+    },
+    "cluster": {
+      "type": "string",
+      "enum": ["creator-led", "collective-pool", "rnd-launchpad", "civic-justice"],
+      "description": "Use case cluster"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Campaign start date"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Campaign end date"
+    },
+    "fundingGoal": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Funding goal in protocol token or currency"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["anchor", "architect", "initiator", "steward"]
+      },
+      "description": "Spiral roles active in campaign"
+    },
+    "governanceModel": {
+      "type": "object",
+      "properties": {
+        "votingType": {
+          "type": "string",
+          "enum": ["token-weighted", "reputation-weighted", "1p1v", "role-weighted"],
+          "description": "Governance voting model"
+        },
+        "quorum": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Quorum percentage required"
+        }
+      },
+      "required": ["votingType", "quorum"]
+    },
+    "metadataURI": {
+      "type": "string",
+      "format": "uri",
+      "description": "Link to campaign metadata (e.g. IPFS URI)"
+    }
+  }
+}
