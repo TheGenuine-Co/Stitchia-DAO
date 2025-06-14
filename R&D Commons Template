@@ -1,0 +1,39 @@
+{
+  "title": "R&D Commons Template",
+  "description": "A standardized framework for decentralized research and development.",
+  "components": {
+    "problem_discovery": {
+      "description": "Mechanisms for identifying and submitting research problems.",
+      "methods": ["Open Calls", "Community Surveys", "Expert Panels"]
+    },
+    "team_formation": {
+      "description": "Processes for assembling diverse research teams.",
+      "methods": ["Open Applications", "Skill Matching", "Reputation Systems"]
+    },
+    "funding_governance": {
+      "description": "Structures for decentralized funding and decision-making.",
+      "methods": ["Quadratic Voting", "Reputation-Based Allocation", "Tokenized Incentives"]
+    },
+    "experiment_design": {
+      "description": "Guidelines for designing reproducible and scalable experiments.",
+      "methods": ["Open Protocols", "Shared Toolkits", "Version Control"]
+    },
+    "validation_and_review": {
+      "description": "Systems for peer review and validation of results.",
+      "methods": ["Open Peer Review", "Reproducibility Checks", "Decentralized Audits"]
+    },
+    "identity_and_recognition": {
+      "description": "Frameworks for recognizing contributions and building trust.",
+      "methods": ["Soulbound Tokens", "Reputation Scores", "Public Profiles"]
+    }
+  },
+  "governance": {
+    "structure": "Decentralized Autonomous Organization (DAO)",
+    "roles": ["Steward", "Contributor", "Reviewer", "Validator"],
+    "decision_making": ["Quadratic Voting", "Consensus Mechanisms"]
+  },
+  "integration": {
+    "platforms": ["Stitchia DAO", "Digital Fabrica", "GroundNavigator"],
+    "tools": ["CodexLine", "IPFS", "Arweave", "Soulbound Tokens"]
+  }
+}
