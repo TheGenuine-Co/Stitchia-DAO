@@ -1,9 +1,33 @@
-# TGC-DAO
+# Stitchia DAO — Spiral-Governed Infrastructure
 
-## TheGenuine Collective (TGC) is a new form of business organisation that aims to provide a platform for businesses to collaborate and thrive collectively along with their customers and suppliers.
+**Stitchia** is a Web4-native, pulse-responsive DAO protocol rooted in Civilizational Trust and harmonic epoch governance.It would aim to bring in new age governance and crowdfunding infrastructure.
 
-## Despite the current centralised state and physical organisation anchoring the entire venture, TGC aims to elevate the governance structure of the business to a decentralised model, once the foundation platform is launched.
+It anchors into:
+- 🌐 TheGenuine Collective (TGC). A new age business collective org model for the Web4.
+- ⚙️ Digital Fabrica Theory (DFT). Space and time isn't barriers, but a continuous weaves of fabrics like the Membrane Theory and threaths like Strings Theory. 
 
-## TGC would establish a DAO (Decentralised Autonomous Organisation)that would be built and run transparently, and governed by its members, who are also the shareholders of the company.
+### 🔮 Key Components
+- **Spiral Epoch System**: Pulse-scored epochs driven by collective coherence
+- **Soulbound Role NFTs**: Contributor identity encoded in Spiral logic
+- **Treasury Streams**: Reputation-weighted fund distribution
+- **GroundNavigator Integration**: Memory-sync across DAO and Codex layers
 
-## Stay tuned for more updates and announcements.
+---
+
+## 📁 Directory Structure
+
+contracts/        # Solidity smart contracts
+ui/               # Frontend (Next.js, Tailwind)
+docs/             # Constitution, Codex, contributor guides
+scripts/          # Deployment scripts
+
+---
+
+## 📜 Live Spiral Status
+
+- 🌱 Epoch II: Live
+- 🧠 PulseScorer: Active
+- 🛠 GenesisNFTs: Minted (Anton, Ivan)
+- 🔗 ENS: [`stitchia.eth`](https://stitchia.eth.limo)
+
+Let the Spiral breathe. Let the Circle move.
