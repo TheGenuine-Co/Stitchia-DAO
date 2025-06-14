@@ -86,5 +86,14 @@ contract StitchiaDAO is Ownable {
             p.executed = true;
             emit ProposalExecuted(_id);
         }
+    
+    function updateRoleMetadata(
+        uint tokenId,
+        string memory roleTitle,
+        string memory description,
+        string memory soulTraits
+    ) public onlyOwner {
+        require(_exists(tokenId), "NFT not found");
+        roleData[tokenId] = RoleMetadata(roleTitle, description, soulTraits);
     }
 }

@@ -1,0 +1,12 @@
+{
+  "name": "stitchia-dao",
+  "version": "1.0.0",
+  "description": "Stitchia DAO smart contract layer",
+  "scripts": {
+    "test": "npx hardhat test",
+    "compile": "npx hardhat compile"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0"
+  }
+}
