@@ -1,0 +1,14 @@
+# Node
+node_modules/
+.next/
+.env
+.env.local
+
+# Contracts
+artifacts/
+cache/
+*.sol.js
+
+# Misc
+.DS_Store
+*.log
