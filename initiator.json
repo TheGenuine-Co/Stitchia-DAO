@@ -1,0 +1,10 @@
+{
+  "name": "Initiator GenesisNFT",
+  "description": "Seeds Spiral Epochs through intention and creative spark.",
+  "image": "ipfs://Qm...initiator.svg",
+  "attributes": [
+    { "trait_type": "Role", "value": "Initiator" },
+    { "trait_type": "Imagination", "value": 10 },
+    { "trait_type": "Signal Clarity", "value": 8 }
+  ]
+}
