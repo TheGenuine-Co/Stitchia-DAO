@@ -1,0 +1,10 @@
+{
+  "name": "Architect GenesisNFT",
+  "description": "Spiral builder, architect of logic and structure.",
+  "image": "ipfs://Qm...architect.svg",
+  "attributes": [
+    { "trait_type": "Role", "value": "Architect" },
+    { "trait_type": "Creativity", "value": 10 },
+    { "trait_type": "Clarity", "value": 8 }
+  ]
+}
