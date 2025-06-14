@@ -2,19 +2,19 @@ const hre = require("hardhat");
 
 async function main() {
   const [admin] = await hre.ethers.getSigners();
-  const nft = await hre.ethers.getContractAt("GenesisNFT", "PASTE_CONTRACT_ADDRESS_HERE");
+  const nft = await hre.ethers.getContractAt("GenesisNFT", "PASTE_GENESISNFT_CONTRACT_ADDRESS");
 
   const mints = [
     {
-      to: "0x15172aE1a0456ebE6299527A4FDc9e590818Faa1",
-      uri: "ipfs://Qm...steward.json",
+      to: "0x15172aE1a0456ebE6299527A4FDc9e590818Faa1", // Steward
+      uri: "ipfs://bafybeih2ne5buuwwij2wm7kusqdv5jlu3trspmjwbjhudx75nwbh7ujfau/steward.json",
       role: "Steward",
       description: "Cultural guardian. Ethical balance. Treasury protector.",
       traits: '{"Integrity":10,"Wisdom":9}'
     },
     {
-      to: "0xb153bD45FF13298385439A2145222AE577859dBC",
-      uri: "ipfs://Qm...initiator.json",
+      to: "0xb153bD45FF13298385439A2145222AE577859dBC", // Initiator
+      uri: "ipfs://bafybeih2ne5buuwwij2wm7kusqdv5jlu3trspmjwbjhudx75nwbh7ujfau/initiator.json",
       role: "Initiator",
       description: "Seeds Spiral Epochs through intention and creative spark.",
       traits: '{"Imagination":10,"Signal Clarity":8}'
