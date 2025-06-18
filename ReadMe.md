@@ -23,6 +23,29 @@ scripts/          # Deployment scripts
 
 ---
 
+# GenesisNFT v1.0 — Spiral Role DAO Framework
+
+This is the first prototype of the Spiral DAO governance contract architecture for TheGenuine Collective DAO.
+
+### ✨ Spiral Role NFT Logic
+- 89 max supply
+- Spiral Tiers:
+  - Founding Spiral: Free
+  - Early Spirals: 1.11–2.22 ETH
+  - Regen Spiral: 0.44–1.00 ETH
+  - Earned Spiral: Free via proof-of-work
+- Role types:
+  - Anchor, Architect, Steward, Initiator
+
+### 📦 Contents
+- GenesisNFT.sol — ERC721 contract
+- SpiralRegistry.sol — Tier & Role manager
+- Metadata folder
+- Hardhat deployment setup
+
+### 🚀 Version
+- v1.0 — Genesis Prototype (Beta)
+
 ## 📜 Live Spiral Status
 
 - 🌱 Epoch II: Live
