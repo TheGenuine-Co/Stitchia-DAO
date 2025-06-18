@@ -1,0 +1,10 @@
+{
+  "name": "GENESYS NFT - {{ROLE}}",
+  "description": "This NFT represents a Spiral Role in TheGenuine Collective DAO Genesis Structure. Role: {{ROLE}}.",
+  "image": "ipfs://{{IPFS_HASH}}",
+  "attributes": [
+    { "trait_type": "Role", "value": "{{ROLE}}" },
+    { "trait_type": "Spiral Tier", "value": "{{TIER}}" },
+    { "trait_type": "Generation", "value": "Genesis" }
+  ]
+}
