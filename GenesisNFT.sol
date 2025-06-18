@@ -1,99 +1,26 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.21;
 
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
-contract StitchiaDAO is Ownable {
-    using EnumerableSet for EnumerableSet.AddressSet;
+contract GenesisNFT is ERC721URIStorage, Ownable {
+    uint256 public nextTokenId;
+    uint256 public constant MAX_SUPPLY = 89;
+    address public spiralRegistry;
 
-    enum Role { None, Initiator, Anchor, Architect, Steward }
-
-    struct Contributor {
-        Role role;
-        uint reputation;
-        bool active;
+    constructor(address _registry) ERC721("GenesisNFT", "GNSYS") {
+        spiralRegistry = _registry;
     }
 
-    struct Proposal {
-        string title;
-        string description;
-        uint256 timestamp;
-        address proposer;
-        bool executed;
-        uint approvals;
-        uint rejections;
+    function mint(address to, string memory tokenURI) external onlyOwner {
+        require(nextTokenId < MAX_SUPPLY, "Max supply reached");
+        _safeMint(to, nextTokenId);
+        _setTokenURI(nextTokenId, tokenURI);
+        nextTokenId++;
     }
 
-    mapping(address => Contributor) public contributors;
-    EnumerableSet.AddressSet private contributorList;
-
-    Proposal[] public proposals;
-    uint public quorumPercent = 60;
-    uint public majorUpgradeThreshold = 75;
-
-    event ContributorAdded(address indexed account, Role role);
-    event ProposalSubmitted(uint indexed proposalId, string title);
-    event Voted(address indexed voter, uint indexed proposalId, bool support);
-    event ProposalExecuted(uint indexed proposalId);
-
-    modifier onlyActive() {
-        require(contributors[msg.sender].active, "Not an active contributor");
-        _;
-    }
-
-    function addContributor(address _account, Role _role, uint _reputation) external onlyOwner {
-        contributors[_account] = Contributor({ role: _role, reputation: _reputation, active: true });
-        contributorList.add(_account);
-        emit ContributorAdded(_account, _role);
-    }
-
-    function submitProposal(string calldata _title, string calldata _desc) external onlyActive {
-        proposals.push(Proposal({
-            title: _title,
-            description: _desc,
-            timestamp: block.timestamp,
-            proposer: msg.sender,
-            executed: false,
-            approvals: 0,
-            rejections: 0
-        }));
-        emit ProposalSubmitted(proposals.length - 1, _title);
-    }
-
-    function vote(uint _id, bool support) external onlyActive {
-        Proposal storage p = proposals[_id];
-        require(!p.executed, "Already executed");
-
-        if (support) p.approvals += contributors[msg.sender].reputation;
-        else p.rejections += contributors[msg.sender].reputation;
-
-        emit Voted(msg.sender, _id, support);
-    }
-
-    function executeProposal(uint _id) external {
-        Proposal storage p = proposals[_id];
-        require(!p.executed, "Already executed");
-
-        uint totalVotes = p.approvals + p.rejections;
-        uint totalRep = 0;
-        for (uint i = 0; i < contributorList.length(); i++) {
-            totalRep += contributors[contributorList.at(i)].reputation;
-        }
-
-        require(totalVotes * 100 / totalRep >= quorumPercent, "Quorum not met");
-        if (p.approvals * 100 / totalRep >= majorUpgradeThreshold) {
-            p.executed = true;
-            emit ProposalExecuted(_id);
-        }
-    
-    function updateRoleMetadata(
-        uint tokenId,
-        string memory roleTitle,
-        string memory description,
-        string memory soulTraits
-    ) public onlyOwner {
-        require(_exists(tokenId), "NFT not found");
-        roleData[tokenId] = RoleMetadata(roleTitle, description, soulTraits);
+    function setSpiralRegistry(address _registry) external onlyOwner {
+        spiralRegistry = _registry;
     }
 }
