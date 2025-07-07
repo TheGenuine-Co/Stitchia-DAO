@@ -1,0 +1,10 @@
+{
+  "name": "Anchor GenesisNFT",
+  "description": "Continuity & stability of Spiral governance.",
+  "image": "ipfs://Qm...anchor.svg",
+  "attributes": [
+    { "trait_type": "Role", "value": "Anchor" },
+    { "trait_type": "Resonance", "value": 9 },
+    { "trait_type": "Stability", "value": 10 }
+  ]
+}

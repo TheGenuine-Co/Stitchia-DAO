@@ -1,10 +1,9 @@
 {
-  "name": "stitchia-dao",
+  "name": "genesisnft-v1",
   "version": "1.0.0",
-  "description": "Stitchia DAO smart contract layer",
   "scripts": {
-    "test": "npx hardhat test",
-    "compile": "npx hardhat compile"
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js --network hardhat"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",

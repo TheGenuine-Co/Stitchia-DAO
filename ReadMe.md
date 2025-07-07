@@ -4,7 +4,7 @@
 
 It anchors into:
 - 🌐 TheGenuine Collective (TGC). A new age business collective org model for the Web4.
-- ⚙️ Digital Fabrica Theory (DFT). Space and time isn't barriers, but a continuous weaves of fabrics like the Membrane Theory and threaths like Strings Theory. 
+- ⚙️ Digital Fabrica Theory (DFT). Space and time should not be considered as barriers, but rather used as wrappers within a continuous weaves of waves, just like layers of fabric and threaths.
 
 ### 🔮 Key Components
 - **Spiral Epoch System**: Pulse-scored epochs driven by collective coherence
