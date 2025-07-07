@@ -7,6 +7,10 @@
     "compile": "npx hardhat compile"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^3.0.0"
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.14"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0"
   }
 }
