@@ -1,8 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("@nomicfoundation/hardhat-verify");
+require("dotenv").config();
 
 module.exports = {
-  solidity: "0.8.21",
-  networks: {
-    hardhat: {},
-  },
 };
