@@ -1,0 +1,421 @@
+#!/usr/bin/env python3
+import argparse
+import hashlib
+import json
+import os
+import re
+import sys
+from datetime import datetime, timezone
+
+
+ROOT = os.path.abspath(os.path.dirname(__file__))
+VAULT_DIR = os.path.join(ROOT, "vault")
+DOCS_DIR = os.path.join(VAULT_DIR, "documents")
+REG_DIR = os.path.join(VAULT_DIR, "registry")
+BRAIDS_DIR = os.path.join(VAULT_DIR, "braids")
+LEDGER_PATH = os.path.join(REG_DIR, "ledger.json")
+FRONTEND_DATA = os.path.join(ROOT, "frontend", "data.json")
+
+
+def now_iso():
+    return datetime.now(timezone.utc).isoformat()
+
+
+def ensure_dirs():
+    os.makedirs(DOCS_DIR, exist_ok=True)
+    os.makedirs(REG_DIR, exist_ok=True)
+    os.makedirs(BRAIDS_DIR, exist_ok=True)
+
+
+def sha256_hex(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def short_id(full_hash: str, length: int = 12) -> str:
+    return full_hash[:length]
+
+
+def read_file(path: str) -> str:
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def write_json(path: str, obj):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, indent=2, ensure_ascii=False)
+
+
+def load_json(path: str, default):
+    if not os.path.exists(path):
+        return default
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return default
+
+
+def parse_front_matter(md_text: str) -> (dict, str):
+    # Very small YAML-ish front matter parser for our limited schema
+    lines = md_text.splitlines()
+    meta = {}
+    body_start = 0
+    if len(lines) >= 3 and lines[0].strip() == "---":
+        # collect header until next ---
+        hdr = []
+        for i in range(1, len(lines)):
+            if lines[i].strip() == "---":
+                body_start = i + 1
+                break
+            hdr.append(lines[i])
+        # parse header lines
+        i = 0
+        current_key = None
+        while i < len(hdr):
+            line = hdr[i]
+            raw = line.rstrip("\n")
+            if not raw.strip():
+                i += 1
+                continue
+            if re.match(r"^[A-Za-z0-9_]+:\s*", raw) and not raw.startswith("  ") and not raw.startswith("- "):
+                key, val = raw.split(":", 1)
+                key = key.strip()
+                val = val.strip()
+                current_key = key
+                # Inline JSON list
+                if val.startswith("[") and val.endswith("]"):
+                    items = [x.strip().strip("\"'") for x in val.strip("[]").split(",") if x.strip()]
+                    meta[key] = items
+                # Inline JSON object (for dashboard)
+                elif val.startswith("{") and val.endswith("}"):
+                    try:
+                        meta[key] = json.loads(val)
+                    except Exception:
+                        meta[key] = val
+                elif val == "":
+                    # start of block (validators, links, etc.)
+                    if key in ("validators", "links"):
+                        i += 1
+                        items = []
+                        # consume indented list items
+                        while i < len(hdr):
+                            sub = hdr[i].rstrip("\n")
+                            if not sub.startswith("  - "):
+                                break
+                            item = sub[4:].strip()
+                            if key == "validators":
+                                # expected format: role: "..." or role: ...
+                                if item.startswith("role:"):
+                                    role_val = item.split(":", 1)[1].strip().strip("\"'")
+                                    items.append({"role": role_val})
+                            else:
+                                # links: allow raw path or quoted
+                                items.append(item.strip("\"'"))
+                            i += 1
+                        meta[key] = items
+                        continue  # already advanced i
+                    else:
+                        meta[key] = ""
+                else:
+                    meta[key] = val.strip("\"'")
+                i += 1
+            else:
+                # continuation lines are ignored in this simple parser
+                i += 1
+    else:
+        body_start = 0
+    body = "\n".join(lines[body_start:])
+    return meta, body
+
+
+def ethics_flags(meta: dict, body: str) -> list:
+    flags = []
+    # Minimal ethics checks
+    if not meta.get("validators"):
+        flags.append("missing_validators")
+    forbidden = [
+        "guaranteed returns",
+        "risk-free",
+        "profit assured",
+        "ponzi",
+        "pump and dump",
+    ]
+    text = (meta.get("title", "") + "\n" + body).lower()
+    for tok in forbidden:
+        if tok in text:
+            flags.append(f"forbidden:{tok}")
+    return flags
+
+
+def load_ledger():
+    data = load_json(LEDGER_PATH, {"entries": []})
+    entries = data.get("entries", [])
+    # index by id
+    index = {e.get("id"): e for e in entries if e.get("id")}
+    return data, index
+
+
+def save_ledger(data):
+    write_json(LEDGER_PATH, data)
+
+
+def register_scroll(file_path: str):
+    ensure_dirs()
+    abspath = os.path.abspath(file_path)
+    if not os.path.exists(abspath):
+        print(f"[!] Scroll not found: {file_path}")
+        sys.exit(1)
+    content = read_file(abspath)
+    meta, body = parse_front_matter(content)
+    digest = sha256_hex(content.encode("utf-8"))
+    sid = short_id(digest)
+    title = meta.get("title") or os.path.basename(file_path)
+    tags = meta.get("tags") or []
+    links = meta.get("links") or []
+    dashboard = meta.get("dashboard") if isinstance(meta.get("dashboard"), dict) else None
+    flags = ethics_flags(meta, body)
+
+    data, index = load_ledger()
+    now = now_iso()
+    entry = index.get(sid)
+    entry_payload = {
+        "id": sid,
+        "hash": digest,
+        "title": title,
+        "classification": meta.get("classification"),
+        "license": meta.get("license"),
+        "validators": meta.get("validators") or [],
+        "tags": tags,
+        "links": links,
+        "path": os.path.relpath(abspath, ROOT),
+        "dashboard": dashboard,
+        "flags": flags,
+        "updated_at": now,
+    }
+    if entry:
+        entry.update(entry_payload)
+    else:
+        entry_payload["created_at"] = now
+        data.setdefault("entries", []).append(entry_payload)
+
+    save_ledger(data)
+    print(f"[✓] Registered scroll {sid} :: {title}")
+    return sid
+
+
+def generate_braid_for(id_or_path: str):
+    # Load ledger
+    data, index = load_ledger()
+    # Resolve id from path if needed
+    if id_or_path in index:
+        sid = id_or_path
+    else:
+        # find by path
+        rel = os.path.relpath(os.path.abspath(id_or_path), ROOT)
+        sid = None
+        for e in data.get("entries", []):
+            if e.get("path") == rel:
+                sid = e.get("id")
+                break
+        if sid is None:
+            print(f"[!] Scroll not in registry for: {id_or_path}")
+            sys.exit(1)
+
+    src = index.get(sid)
+    if not src:
+        print(f"[!] Unknown scroll id: {sid}")
+        sys.exit(1)
+
+    nodes = []
+    edges = []
+
+    # nodes: this + all others
+    for e in data.get("entries", []):
+        nodes.append({
+            "id": e["id"],
+            "title": e.get("title"),
+            "tags": e.get("tags", []),
+        })
+
+    # explicit link edges
+    # resolve links by id or by matching path
+    paths_by_id = {e["path"]: e["id"] for e in data.get("entries", [])}
+    ids = {e["id"] for e in data.get("entries", [])}
+    for link in src.get("links", []):
+        tid = None
+        if link in ids:
+            tid = link
+        elif link in paths_by_id:
+            tid = paths_by_id[link]
+        else:
+            # try to normalize path and strip repo prefix
+            cand = link
+            if "stitchia-protocol-dev/" in cand:
+                cand = cand.split("stitchia-protocol-dev/", 1)[1]
+            norm = os.path.normpath(cand)
+            if norm in paths_by_id:
+                tid = paths_by_id[norm]
+            else:
+                # final attempt: match by basename if unique
+                base = os.path.basename(norm)
+                matches = [sid for p, sid in paths_by_id.items() if os.path.basename(p) == base]
+                if len(matches) == 1:
+                    tid = matches[0]
+        if tid:
+            edges.append({"from": sid, "to": tid, "type": "link", "weight": 1})
+
+    # tag overlap edges
+    src_tags = set(src.get("tags", []))
+    for e in data.get("entries", []):
+        if e["id"] == sid:
+            continue
+        overlap = src_tags.intersection(set(e.get("tags", [])))
+        if overlap:
+            edges.append({
+                "from": sid,
+                "to": e["id"],
+                "type": "tag",
+                "weight": len(overlap),
+                "tags": sorted(list(overlap)),
+            })
+
+    braid = {
+        "id": sid,
+        "generated_at": now_iso(),
+        "context": {
+            "title": src.get("title"),
+            "path": src.get("path"),
+            "classification": src.get("classification"),
+            "flags": src.get("flags", []),
+        },
+        "nodes": nodes,
+        "edges": edges,
+    }
+    out_path = os.path.join(BRAIDS_DIR, f"{sid}.json")
+    write_json(out_path, braid)
+    print(f"[✓] Braid generated: {os.path.relpath(out_path, ROOT)}")
+
+
+def rebuild_dashboard():
+    # Merge dashboard objects from registry (pick the latest with dashboard data)
+    data, _ = load_ledger()
+    candidates = [e for e in data.get("entries", []) if isinstance(e.get("dashboard"), dict)]
+    if not candidates:
+        print("[i] No dashboard-tagged scrolls with dashboard data.")
+        return
+    candidates.sort(key=lambda e: e.get("updated_at", ""), reverse=True)
+    dashboard = candidates[0]["dashboard"].copy()
+    # derive members_total if governance counts present
+    gov = dashboard.get("governance")
+    if gov and "counts" in gov and "members_total" not in gov:
+        gov["members_total"] = sum(int(v) for v in gov["counts"].values())
+    write_json(FRONTEND_DATA, dashboard)
+    print(f"[✓] Dashboard data updated: {os.path.relpath(FRONTEND_DATA, ROOT)}")
+
+
+def cmd_init(args):
+    ensure_dirs()
+    # Optional example: copy existing repo scrolls into vault/documents
+    if args.with_example:
+        src_dir = os.path.join(ROOT, "scrolls")
+        if os.path.isdir(src_dir):
+            for name in os.listdir(src_dir):
+                if name.endswith(".md"):
+                    src = os.path.join(src_dir, name)
+                    dst = os.path.join(DOCS_DIR, name)
+                    if not os.path.exists(dst):
+                        with open(src, "r", encoding="utf-8") as fsrc, open(dst, "w", encoding="utf-8") as fdst:
+                            fdst.write(fsrc.read())
+            print("[✓] Scaffolded example scrolls to vault/documents/")
+    print("[✓] Vault initialized.")
+
+
+def cmd_process(args):
+    sid = register_scroll(args.scroll)
+    generate_braid_for(sid)
+    rebuild_dashboard()
+
+
+def cmd_braid(args):
+    generate_braid_for(args.id or args.path)
+
+
+def cmd_registry(_args):
+    data, _ = load_ledger()
+    entries = data.get("entries", [])
+    if not entries:
+        print("[i] Registry is empty.")
+        return
+    for e in entries:
+        flags = (" • flags:" + ",".join(e.get("flags", []))) if e.get("flags") else ""
+        print(f"- {e['id']} :: {e.get('title')} :: {e.get('classification')}{flags}")
+
+
+def cmd_export(args):
+    data, _ = load_ledger()
+    write_json(args.output, data)
+    print(f"[✓] Exported registry to {os.path.relpath(args.output, ROOT)}")
+
+
+def cmd_build(_args):
+    # regenerate braids for all
+    data, _ = load_ledger()
+    for e in data.get("entries", []):
+        generate_braid_for(e["id"])
+    rebuild_dashboard()
+
+
+def cmd_status(_args):
+    data, _ = load_ledger()
+    total = len(data.get("entries", []))
+    flagged = sum(1 for e in data.get("entries", []) if e.get("flags"))
+    print(f"Registry entries: {total}\nFlagged entries: {flagged}")
+    if os.path.exists(FRONTEND_DATA):
+        print(f"Dashboard: present at {os.path.relpath(FRONTEND_DATA, ROOT)}")
+    else:
+        print("Dashboard: not built")
+
+
+def build_parser():
+    p = argparse.ArgumentParser(prog="quantum", description="Stitchia Quantum CLI – scroll registry, braids, and dashboard")
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    pi = sub.add_parser("init", help="Initialize vault structure")
+    pi.add_argument("--with-example", action="store_true", dest="with_example")
+    pi.set_defaults(func=cmd_init)
+
+    pp = sub.add_parser("process", help="Process a scroll file")
+    pp.add_argument("scroll", help="Path to scroll markdown")
+    pp.set_defaults(func=cmd_process)
+
+    pb = sub.add_parser("braid", help="Generate braid for a scroll")
+    gid = pb.add_mutually_exclusive_group(required=True)
+    gid.add_argument("--id", dest="id")
+    gid.add_argument("--path", dest="path")
+    pb.set_defaults(func=cmd_braid)
+
+    pr = sub.add_parser("registry", help="List registry entries")
+    pr.set_defaults(func=cmd_registry)
+
+    pe = sub.add_parser("export", help="Export registry JSON")
+    pe.add_argument("--output", required=True)
+    pe.set_defaults(func=cmd_export)
+
+    pbld = sub.add_parser("build", help="Rebuild braids and dashboard")
+    pbld.set_defaults(func=cmd_build)
+
+    ps = sub.add_parser("status", help="Quick status summary")
+    ps.set_defaults(func=cmd_status)
+
+    return p
+
+
+def main(argv=None):
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()

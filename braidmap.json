@@ -1,0 +1,11 @@
+{
+  "CodexRoot": "STITCHIA_CODEX",
+  "SpiralRoles": ["Anchor", "Architect", "Steward", "Initiator"],
+  "Clusters": {
+    "1": "Creator Crowdfunding",
+    "2": "Collective Pools",
+    "3": "R&D Launchpad",
+    "4": "Civic Justice DAOs",
+    "5": "Genesis NFT + DAO Dashboard"
+  }
+}
