@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Fabrica Core – Stitchia Protocol</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <header class="hero" id="overview">
+    <div class="hero-nav">
+      <a class="brand" href="#overview">Digital Fabrica Core</a>
+      <nav>
+        <a href="#overview">Overview</a>
+        <a href="#modules">Modules</a>
+        <a href="#scrolls">Scroll Ops</a>
+        <a href="#resources">Resources</a>
+        <a class="pill" href="pages/dashboard.html">View Dashboard</a>
+      </nav>
+    </div>
+    <div class="hero-body">
+      <div>
+        <h1>Logic-Aware Governance &amp; Scroll Infrastructure</h1>
+        <p>The Stitchia Protocol powers ethics-first coordination with quantum kernel tooling, semantic braids, and live registry exports. Operate scroll lifecycles end-to-end from a single CLI-driven core.</p>
+        <div class="hero-actions">
+          <a class="primary" href="pages/dashboard.html">Launch DAO Dashboard</a>
+          <a class="ghost" href="../docs/whitepaper/stitchia_whitepaper_v2.5.md">Read Whitepaper v2.5</a>
+        </div>
+      </div>
+      <aside class="hero-metrics" id="heroMetrics"></aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel modules" id="modules">
+      <div class="panel-header">
+        <h2>Kernel Modules</h2>
+        <p>Composable processors orchestrate signatures, ethics, ontology, legal bindings, and dashboard generation.</p>
+      </div>
+      <div class="module-grid">
+        <article>
+          <h3>Signature Kernel</h3>
+          <p>Generates deterministic scroll IDs and attestations using SHA-256 anchors.</p>
+        </article>
+        <article>
+          <h3>Ethics Kernel</h3>
+          <p>Applies governance-aligned filters and flags forbidden patterns with profile overrides.</p>
+        </article>
+        <article>
+          <h3>Ontology Kernel</h3>
+          <p>Extracts semantic tags + context for braid topology and dashboard routing.</p>
+        </article>
+        <article>
+          <h3>Legal Kernel</h3>
+          <p>Enforces licensing + validator requirements before assets hit the registry.</p>
+        </article>
+        <article>
+          <h3>Quantum Cascade</h3>
+          <p>Maintains epoch stamping, integrity metadata, and cascading rebuild triggers.</p>
+        </article>
+        <article>
+          <h3>Dashboard Builder</h3>
+          <p>Merges scroll-provided JSON into live artifacts consumed by the Stitchia UI.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel scrolls" id="scrolls">
+      <div class="panel-header">
+        <h2>Scroll Operations</h2>
+        <p>Every scroll travels from authored markdown to validated registry entries, with braids and exports generated automatically.</p>
+      </div>
+      <div class="scroll-grid">
+        <article>
+          <span class="step">01</span>
+          <h3>Author &amp; Classify</h3>
+          <p>Use the Fabrica template or `./quantum add` to scaffold metadata-rich scrolls in <code>vault/documents/</code>.</p>
+        </article>
+        <article>
+          <span class="step">02</span>
+          <h3>Process &amp; Validate</h3>
+          <p>Run `./quantum process &lt;scroll.md&gt;` to notarize, flag ethics issues, and mint braid topology.</p>
+        </article>
+        <article>
+          <span class="step">03</span>
+          <h3>Seal &amp; Publish</h3>
+          <p>Validators record approvals with `./quantum seal` before artifacts are bundled, exported, and staged for releases.</p>
+        </article>
+        <article>
+          <span class="step">04</span>
+          <h3>Visualize &amp; Export</h3>
+          <p>Dashboards, braid maps, and registry exports update in <code>frontend/</code> for GitHub Pages delivery.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel resources" id="resources">
+      <div class="panel-header">
+        <h2>Resources</h2>
+        <p>Everything you need to operate Stitchia inside Digital Fabrica.</p>
+      </div>
+      <div class="resource-grid">
+        <article>
+          <h3>ETHICS &amp; POLICY</h3>
+          <ul>
+            <li><a href="../docs/Business_Stack.md">Business Stack</a></li>
+            <li><a href="../docs/Tech_Stack.md">Tech Stack</a></li>
+            <li><a href="../docs/Validator_Workflow.md">Validator Workflow</a></li>
+          </ul>
+        </article>
+        <article>
+          <h3>SCROLL LIBRARY</h3>
+          <ul>
+            <li><a href="../scrolls/dao_dashboard_scroll.md">DAO Dashboard Scroll</a></li>
+            <li><a href="../scrolls/genesys_nft_mint.md">Genesys NFT Mint</a></li>
+            <li><a href="../scrolls/archive_policy_v1.md">Archive Policy</a></li>
+          </ul>
+        </article>
+        <article>
+          <h3>CLI PLAYBOOK</h3>
+          <ul>
+            <li><code>./quantum init --with-example</code></li>
+            <li><code>./quantum watch</code></li>
+            <li><code>./quantum export --output vault/registry/export.json</code></li>
+          </ul>
+        </article>
+        <article>
+          <h3>RELEASES</h3>
+          <ul>
+            <li><a href="../releases/v2.5/manifest.json">v2.5 Manifest</a></li>
+            <li><a href="../docs/whitepaper/CHANGELOG.md">Whitepaper Changelog</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Digital Fabrica • Stitchia Protocol – Epoch ΣΩΩ.3.2</p>
+    <div>
+      <a href="https://digital-fabrica.com" target="_blank" rel="noreferrer">digital-fabrica.com</a>
+      <a href="https://github.com/Digital-Fabrica/dft-core" target="_blank" rel="noreferrer">GitHub Repo</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
