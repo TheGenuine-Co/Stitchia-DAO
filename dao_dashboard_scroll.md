@@ -33,3 +33,5 @@ This scroll defines the DAO Dashboard framing used for governance visibility.
 
 ## Ethics
 Display avoids implying financial returns. Governance metrics emphasize participation and stewardship.
+\n# touch 1
+\n# touch 2
