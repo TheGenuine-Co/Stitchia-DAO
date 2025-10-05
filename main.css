@@ -1,0 +1,332 @@
+:root {
+  color-scheme: dark;
+  --bg: radial-gradient(circle at 20% -10%, #213450, transparent 55%), radial-gradient(circle at 80% 0%, rgba(31,111,235,0.35), transparent 50%), #07090d;
+  --panel: rgba(12, 17, 24, 0.82);
+  --panel-border: rgba(58, 78, 107, 0.38);
+  --panel-hover: rgba(20, 29, 41, 0.9);
+  --text: #f2f5fb;
+  --muted: #94a6c4;
+  --accent: #3e82f7;
+  --accent-soft: rgba(62,130,247,0.18);
+  --accent-gradient: linear-gradient(135deg, #3e82f7, #8b5cf6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  color: #fff;
+}
+
+.hero {
+  padding: 3.5rem clamp(1.5rem, 5vw, 6rem) 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 60% 20%, rgba(62,130,247,0.35), transparent 55%);
+  pointer-events: none;
+}
+
+.hero-nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 1.5rem;
+}
+
+.hero-nav nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-nav nav a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: var(--muted);
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+}
+
+.hero-nav nav a:hover,
+.hero-nav nav a:focus {
+  background: rgba(255,255,255,0.05);
+}
+
+.hero-nav nav .pill {
+  background: rgba(62,130,247,0.12);
+  border: 1px solid rgba(62,130,247,0.4);
+  color: #cfdaf8;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.hero-body h1 {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1.1;
+  margin-bottom: 1.1rem;
+}
+
+.hero-body p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+  max-width: 520px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero-actions a {
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.85rem 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-actions .primary {
+  background: var(--accent-gradient);
+  color: #fff;
+}
+
+.hero-actions .ghost {
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--muted);
+}
+
+.hero-metrics {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 20px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  display: grid;
+  gap: 1rem;
+  min-height: 220px;
+}
+
+.hero-metrics article {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.65rem 0.75rem;
+  border-radius: 14px;
+  background: rgba(7,10,16,0.6);
+  border: 1px solid rgba(94, 115, 149, 0.22);
+}
+
+.hero-metrics article h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 0;
+}
+
+.hero-metrics article strong {
+  font-size: 1.5rem;
+}
+
+main {
+  display: grid;
+  gap: 3rem;
+  padding: 0 clamp(1.5rem, 5vw, 6rem) 4rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: 28px;
+  backdrop-filter: blur(10px);
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+}
+
+.panel-header p {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  max-width: 600px;
+}
+
+.module-grid,
+.scroll-grid,
+.resource-grid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.module-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.module-grid article,
+.scroll-grid article,
+.resource-grid article {
+  background: rgba(10, 14, 20, 0.85);
+  border: 1px solid rgba(76, 97, 132, 0.28);
+  border-radius: 20px;
+  padding: 1.4rem 1.5rem;
+  transition: transform 0.25s ease, background 0.25s ease;
+  min-height: 180px;
+}
+
+.module-grid article:hover,
+.scroll-grid article:hover,
+.resource-grid article:hover {
+  transform: translateY(-6px);
+  background: var(--panel-hover);
+}
+
+.module-grid h3,
+.scroll-grid h3,
+.resource-grid h3 {
+  margin-top: 0;
+  margin-bottom: 0.65rem;
+}
+
+.module-grid p,
+.scroll-grid p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.scroll-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.scroll-grid .step {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.45);
+}
+
+.scroll-grid code {
+  background: rgba(255,255,255,0.06);
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+  color: #d8e4ff;
+}
+
+.resource-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.resource-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.resource-grid a {
+  text-decoration: none;
+  color: #d5e2ff;
+}
+
+.resource-grid a:hover,
+.resource-grid a:focus {
+  text-decoration: underline;
+}
+
+.site-footer {
+  padding: 2.5rem clamp(1.5rem, 5vw, 6rem) 3rem;
+  border-top: 1px solid rgba(82, 102, 134, 0.25);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  background: rgba(5, 7, 11, 0.92);
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.site-footer a {
+  color: #c7d7ff;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.site-footer a:first-child {
+  margin-left: 0;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding-top: 2.5rem;
+  }
+
+  .hero-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-nav nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .hero-actions {
+    width: 100%;
+  }
+
+  .hero-metrics {
+    order: -1;
+  }
+
+  .site-footer {
+    flex-direction: column;
+  }
+}

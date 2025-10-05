@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stitchia Protocol – DAO Dashboard</title>
+  <link rel="stylesheet" href="../assets/css/dashboard.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">Stitchia Protocol</a>
+    <nav>
+      <a href="../index.html#overview">Overview</a>
+      <a href="../index.html#modules">Modules</a>
+      <a href="../index.html#scrolls">Scrolls</a>
+    </nav>
+  </header>
+
+  <main class="grid">
+    <section class="card mint" aria-labelledby="mint-title">
+      <h2 id="mint-title">Genesis NFT Mint</h2>
+      <div class="mint-grid">
+        <div class="mint-media">
+          <div class="logo">GENESYS NFT</div>
+          <div class="subtitle">INITIATOR</div>
+          <p class="desc">This NFT represents role in the Geneals Structure of TheGenuine Collective DA: Role: Initiator</p>
+        </div>
+        <div class="mint-attrs">
+          <ul>
+            <li><span>Role</span><strong>Initiator</strong></li>
+            <li><span>Spiral Tier</span><strong>Regen Spiral</strong></li>
+            <li><span>Generation</span><strong>Genesis</strong></li>
+          </ul>
+          <div class="mint-controls">
+            <label class="sr-only" for="mint-count">Quantity</label>
+            <input id="mint-count" type="number" min="1" value="1" />
+            <label class="sr-only" for="mint-currency">Currency</label>
+            <select id="mint-currency"><option>ETH</option></select>
+          </div>
+          <button class="primary" type="button">Mint NFT (0.44 ETH)</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card dashboard" aria-labelledby="dashboard-title">
+      <div class="dashboard-header">
+        <h2 id="dashboard-title">DAO Dashboard</h2>
+        <button class="secondary" type="button" id="walletButton">Connect Wallet</button>
+      </div>
+      <div class="dash-grid">
+        <div class="gov">
+          <h3>Governance</h3>
+          <div class="donut" role="presentation" aria-hidden="true"></div>
+          <ul class="legend" id="rolesLegend"></ul>
+          <div id="membersMetric" class="metric">— Spiral Members</div>
+        </div>
+        <div class="treasury">
+          <h3>Treasury</h3>
+          <div id="treasuryValue" class="value"><strong>— ETH</strong></div>
+          <div id="treasurySub" class="sub">—</div>
+        </div>
+        <div class="proposals">
+          <h3>Proposals</h3>
+          <ul id="proposalsList" aria-live="polite"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>
