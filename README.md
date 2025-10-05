@@ -1,18 +1,23 @@
-# 🧬 Stitchia Protocol
+# Stitchia Protocol – Release v2.5
 
-This repository contains the smart contracts, token logic, documentation, and frontend components of the Stitchia Protocol — a regenerative cultural operating system built for decentralized coordination.
-
-- Whitepaper v2.5: `docs/whitepaper/stitchia_whitepaper_v2.5.md`
-- Changelog: `docs/whitepaper/CHANGELOG.md`
-- Dashboard Spec: `docs/DAO_Dashboard_Spec.md`
-
-Quick start (local):
-
-1. `./quantum init --with-example`
-2. `./quantum process scrolls/dao_dashboard_scroll.md`
-3. `./quantum build`
-4. Open `frontend/index.html` to preview the dashboard.
-
-Releases
+Artifact
 --------
-- v2.5 docs bundle: `releases/v2.5/stitchia-protocol-docs-v2.5.zip` (see `releases/v2.5/manifest.json` for SHA256)
+- `stitchia-protocol-docs-v2.5.zip` — consolidated documentation and linked scrolls.
+- Manifest: `manifest.json` (includes SHA256 and file list).
+
+Contents (high level)
+---------------------
+- Whitepaper v2.5 + Changelog
+- Business/Tech stacks (v2.5)
+- Dashboard Data Spec (v2.5)
+- Validator Workflow (v2.5)
+- Blueprint pointer
+- Linked scrolls: DAO dashboard, GENESYS NFT, Archive policy, Executive Secretary charter, Creator cluster
+
+Upload to GitHub
+----------------
+1) In your repository, create a Release named `v2.5`.
+2) Attach `stitchia-protocol-docs-v2.5.zip`.
+3) Paste the SHA256 from `manifest.json` for verification.
+4) Optionally link to the whitepaper path in the description: `docs/whitepaper/stitchia_whitepaper_v2.5.md`.
+
