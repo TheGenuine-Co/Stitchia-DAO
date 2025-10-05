@@ -1,0 +1,8 @@
+{
+  "version": "2.5",
+  "date": "2025-09-10T13:03:47Z",
+  "artifact": "stitchia-protocol-docs-v2.5.zip",
+  "size_bytes": 13547,
+  "sha256": "f44fb0a78dd86255287982c15ec31906ca3ce5779dc8e24c646a0f2af5502641",
+  "contents": ["stitchia-protocol-dev/docs/whitepaper/stitchia_whitepaper_v2.5.md","stitchia-protocol-dev/docs/whitepaper/CHANGELOG.md","stitchia-protocol-dev/docs/STITCHIA_Master_Protocol_Blueprint.md","stitchia-protocol-dev/docs/Business_Stack.md","stitchia-protocol-dev/docs/Tech_Stack.md","stitchia-protocol-dev/docs/DAO_Dashboard_Spec.md","stitchia-protocol-dev/docs/Validator_Workflow.md","stitchia-protocol-dev/scrolls/dao_dashboard_scroll.md","stitchia-protocol-dev/scrolls/genesys_nft_mint.md","stitchia-protocol-dev/scrolls/archive_policy_v1.md","stitchia-protocol-dev/scrolls/executive_secretary_charter.md","stitchia-protocol-dev/scrolls/creator_cluster_scroll.md"]
+}
