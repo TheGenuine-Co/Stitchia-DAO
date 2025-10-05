@@ -1,0 +1,55 @@
+{
+  "id": "0a6b42f8bf2d",
+  "generated_at": "2025-09-27T16:46:27.251771+00:00",
+  "context": {
+    "title": "creator_cluster_scroll.md",
+    "path": "scrolls/creator_cluster_scroll.md",
+    "classification": null,
+    "flags": [
+      "missing_validators"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "aa9a92ffc743",
+      "title": "🧬 Scroll: GENESYS NFT – Initiator Mint",
+      "tags": [
+        "nft",
+        "genesis",
+        "governance",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "0a6b42f8bf2d",
+      "title": "creator_cluster_scroll.md",
+      "tags": []
+    },
+    {
+      "id": "77e28d108ed5",
+      "title": "🧬 Scroll: DAO Dashboard",
+      "tags": [
+        "dashboard",
+        "governance",
+        "treasury",
+        "proposals"
+      ]
+    },
+    {
+      "id": "7c90b49169b0",
+      "title": "Stitchia Protocol — Whitepaper v2.5",
+      "tags": [
+        "stitchia",
+        "whitepaper",
+        "protocol",
+        "governance",
+        "validators",
+        "dashboard",
+        "nft",
+        "token",
+        "synq"
+      ]
+    }
+  ],
+  "edges": []
+}
