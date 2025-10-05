@@ -1,8 +1,8 @@
-MIT License
+DFT/YC/TGC Licence 
 
-Copyright (c) 2025 TheGenuine Collective
+Copyright (c) 2025 TheGenuine Collective Limited
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files...
 
-[full MIT text follows or use GitHub’s license template]
+[full TGC text follows or use GitHub’s license template]
