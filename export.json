@@ -1,0 +1,119 @@
+{
+  "entries": [
+    {
+      "id": "aa9a92ffc743",
+      "hash": "aa9a92ffc7435baceebe1aa90bfcb3d58411194f20040a5d9ea5f03b43cfe7cb",
+      "title": "🧬 Scroll: GENESYS NFT – Initiator Mint",
+      "classification": "Governance+Ethics+StrategicDesign",
+      "license": "Public-Licensed / CodexLinked",
+      "validators": [
+        {
+          "role": "Ethics Steward"
+        },
+        {
+          "role": "Governance Architect"
+        }
+      ],
+      "tags": [
+        "nft",
+        "genesis",
+        "governance",
+        "dashboard"
+      ],
+      "links": [
+        "stitchia-protocol-dev/scrolls/dao_dashboard_scroll.md"
+      ],
+      "path": "scrolls/genesys_nft_mint.md",
+      "dashboard": null,
+      "flags": [],
+      "updated_at": "2025-09-06T14:03:02.800942+00:00",
+      "created_at": "2025-09-06T14:03:02.800942+00:00"
+    },
+    {
+      "id": "0a6b42f8bf2d",
+      "hash": "0a6b42f8bf2de32ad4e479306b1b0c1a222f42bab11cbf812f6c14b7d26cc0d6",
+      "title": "creator_cluster_scroll.md",
+      "classification": null,
+      "license": null,
+      "validators": [],
+      "tags": [],
+      "links": [],
+      "path": "scrolls/creator_cluster_scroll.md",
+      "dashboard": null,
+      "flags": [
+        "missing_validators"
+      ],
+      "updated_at": "2025-09-06T14:03:02.834803+00:00",
+      "created_at": "2025-09-06T14:03:02.834803+00:00"
+    },
+    {
+      "id": "77e28d108ed5",
+      "hash": "77e28d108ed50fad26fa9cac2a0dbada56c289011649d9456899c779fed18b91",
+      "title": "🧬 Scroll: DAO Dashboard",
+      "classification": "Governance+Ethics+StrategicDesign",
+      "license": "Public-Licensed / CodexLinked",
+      "validators": [
+        {
+          "role": "Data Steward"
+        },
+        {
+          "role": "Governance Architect"
+        }
+      ],
+      "tags": [
+        "dashboard",
+        "governance",
+        "treasury",
+        "proposals"
+      ],
+      "links": [
+        "stitchia-protocol-dev/scrolls/genesys_nft_mint.md"
+      ],
+      "path": "scrolls/dao_dashboard_scroll.md",
+      "dashboard": {
+        "governance": {
+          "roles": [
+            "Anchor",
+            "Architect",
+            "Steward",
+            "Initiator"
+          ],
+          "counts": {
+            "Anchor": 24,
+            "Architect": 18,
+            "Steward": 30,
+            "Initiator": 17
+          }
+        },
+        "treasury": {
+          "total_eth": 3567,
+          "staking_eth": 1984,
+          "protocol_eth": 1007,
+          "updated_at": "2025-09-05T00:00:00Z"
+        },
+        "proposals": {
+          "items": [
+            {
+              "title": "Staking Program Iteration",
+              "status": "In Progress",
+              "age_days": 5
+            },
+            {
+              "title": "Treasury Allocation Adjustment",
+              "status": "Active",
+              "age_days": 2
+            },
+            {
+              "title": "Incentive Structures Update",
+              "status": "Active",
+              "age_days": 7
+            }
+          ]
+        }
+      },
+      "flags": [],
+      "updated_at": "2025-09-06T14:03:02.869449+00:00",
+      "created_at": "2025-09-06T14:03:02.869449+00:00"
+    }
+  ]
+}
